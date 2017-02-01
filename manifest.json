@@ -4,7 +4,9 @@
 	"manifest_version": 2,
 	"description": "Allow you to highlight the words in the web pages that are the same as your selection.",
 	"icons": {
-		"128": "icon_128.png"
+		"128": "icon_128.png",
+		"48": "icon_48.png",
+		"16": "icon_16.png"
 	},
 	// "background": {
 	// 	"persistent": false,
@@ -15,11 +17,10 @@
 		"matches": ["<all_urls>"],
 		"css": ["content.css"],
 		"js": ["jquery.js", "content.js"]
-	}]
+	}],
 	// "permissions": ["<all_urls>"]
-	// "browser_action": {
-	// 	"default_title": "",
-	// 	"default_icon": "icon_19.png",
-	// 	"default_popup": "popup.html"
-	// }
+	"browser_action": {
+		"default_title": "Select To Highlight",
+		"default_icon": "icon_128.png"
+	}
 }
