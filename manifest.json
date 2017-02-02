@@ -8,17 +8,11 @@
 		"48": "icon_48.png",
 		"16": "icon_16.png"
 	},
-	// "background": {
-	// 	"persistent": false,
-	// 	"scripts": ["bg.js"]
-	// },
 	"content_scripts": [{
-		// "matches": ["http://*.qq.com/*"],
 		"matches": ["<all_urls>"],
 		"css": ["content.css"],
 		"js": ["jquery.js", "content.js"]
 	}],
-	// "permissions": ["<all_urls>"]
 	"browser_action": {
 		"default_title": "Select To Highlight",
 		"default_icon": "icon_128.png"
