@@ -1,6 +1,6 @@
 {
 	"name": "Select To Highlight",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"manifest_version": 2,
 	"description": "Allow you to highlight the words in the web pages that are the same as your selection.",
 	"icons": {

@@ -1,4 +1,4 @@
-const DELAY = 100,
+const DELAY = 0,
 	MAX_LENGTH = 50;
 
 
@@ -31,7 +31,7 @@ $('body').on('mouseup dbclick', e => {
 
 function doHighight(selectedText, ignores = []) {
 	let regex = new RegExp(`\\b${selectedText}\\b`, `g`);
-	let textList = getTextNodesIn('body');
+	let textList = getVisibleTextNodesIn('body');
 	textList.each((index, textNode) => {
 		// 递归调用, 每次进处理第一个词, 将剩余的词放入下一次递归中处理
 		(function handlerFirstTextInStr(textNode) {
@@ -61,8 +61,8 @@ function undoHighlight() {
 
 
 
-function getTextNodesIn(el) {
-	return $(el).find(":not(iframe)").addBack().contents().filter(function() {
+function getVisibleTextNodesIn(el) {
+	return $(el).find(":not(iframe):visible").addBack().contents().filter(function() {
 		return this.nodeType == 3;
 	});
 };
