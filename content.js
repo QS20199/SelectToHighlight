@@ -33,23 +33,28 @@ function doHighight(selectedText, ignores = []) {
 	let regex = new RegExp(`\\b${selectedText}\\b`, `g`);
 	let textList = getTextNodesIn('body');
 	textList.each((index, textNode) => {
-		let curText = textNode.nodeValue;
-		let parentNode = textNode.parentNode;
-		if (regex.test(curText) && ignores.indexOf(textNode) == -1) {
-			// curText => `textLeft_selectedText_textRight`
-			// one node => three nodes
-			let [textLeft = '', textRight = ''] = curText.split(selectedText);
-			textNode.nodeValue = textRight;
-			parentNode.insertBefore(document.createTextNode(textLeft), textNode);
-			parentNode.insertBefore($(`<span class='__QS_highlight__'>${selectedText}</span>`)[0], textNode);
-		}
+		// 递归调用, 每次进处理第一个词, 将剩余的词放入下一次递归中处理
+		(function handlerFirstTextInStr(textNode) {
+			let curText = textNode.nodeValue;
+			let parentNode = textNode.parentNode;
+			regex.lastIndex = 0;
+			if (regex.test(curText) && ignores.indexOf(textNode) == -1) {
+				// curText => `textLeft_selectedText_textRemain`
+				// one node => three nodes
+				let [textLeft = '', ...textRemain] = curText.split(selectedText);
+				textNode.nodeValue = textRemain.join(selectedText);
+				parentNode.insertBefore(document.createTextNode(textLeft), textNode);
+				parentNode.insertBefore($(`<qs-highlight>${selectedText}</qs-highlight>`)[0], textNode);
+				handlerFirstTextInStr(textNode);
+			}
+		})(textNode);
 	})
 }
 
 
 
 function undoHighlight() {
-	$('.__QS_highlight__').each((index, el) => {
+	$('qs-highlight').each((index, el) => {
 		el.outerHTML = el.innerHTML;
 	})
 }
