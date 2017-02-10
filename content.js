@@ -30,7 +30,7 @@ $('body').on('mouseup dbclick', e => {
 
 
 function doHighight(selectedText, ignores = []) {
-	let regex = new RegExp(`\\b${selectedText}\\b`, `g`);
+	let regex = new RegExp(`\\b${escRegExp(selectedText)}\\b`, `g`);
 	let textList = getVisibleTextNodesIn('body');
 	textList.each((index, textNode) => {
 		// 递归调用, 每次进处理第一个词, 将剩余的词放入下一次递归中处理
@@ -66,3 +66,8 @@ function getVisibleTextNodesIn(el) {
 		return this.nodeType == 3;
 	});
 };
+
+
+function escRegExp(str) {
+	return String(str).replace(/[.*+?^=!:${}()|[\]\/\\]/g, '\\$&');
+}
