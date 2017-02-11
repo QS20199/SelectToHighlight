@@ -30,7 +30,15 @@ $('body').on('mouseup dbclick', e => {
 
 
 function doHighight(selectedText, ignores = []) {
-	let regex = new RegExp(`\\b${escRegExp(selectedText)}\\b`, `g`);
+	let regex;
+	if (/[^a-zA-z0-9_\$]/.test(selectedText)) { // 满足这个条件的不用\b, 针对非变量名的情况
+		regex = new RegExp(`${escRegExp(selectedText)}`, `g`);
+	} else { // 否则加上\b匹配, 要求匹配整个单词
+		regex = new RegExp(`\\b${escRegExp(selectedText)}\\b`, `g`);
+	}
+
+
+
 	let textList = getVisibleTextNodesIn('body');
 	textList.each((index, textNode) => {
 		// 递归调用, 每次进处理第一个词, 将剩余的词放入下一次递归中处理
