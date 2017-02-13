@@ -70,7 +70,7 @@ function undoHighlight() {
 
 
 function getVisibleTextNodesIn(el) {
-	return $(el).find(":not(iframe):visible").addBack().contents().filter(function() {
+	return $(el).find(":not(iframe, textarea):visible").addBack().contents().filter(function() {
 		return this.nodeType == 3;
 	});
 };
